@@ -24,7 +24,7 @@ function AjouterMateriel($c, $ma, $ref, $qte){
     $r=$c->query("SELECT * FROM Materiel WHERE reference_materiel = '".$ref."';")->fetch();
     //var_dump($id);
     if(!$r == false){
-        $conn1->query("UPDATE materiel SET  quantite = (quantite + ".$qte.") WHERE reference_materiel = '".$ref."';");
+        $c->query("UPDATE materiel SET  quantite = (quantite + ".$qte.") WHERE reference_materiel = '".$ref."';");
         header("Location: ./det.php?id_materiel=".$r['id_materiel']);
         die();
     } else {
@@ -33,10 +33,27 @@ function AjouterMateriel($c, $ma, $ref, $qte){
         header("Location: ./det.php?id_materiel=".$r['id_materiel']);
         die();
     }
+    
+    //a modifier -> les header ne devrait pas être dans la fonction, plutôt retourner le $id
 }
 
-function RetirerMateriel(){
+function RetirerMateriel($c, $ref, $qte){
     $r=$c->query("SELECT * FROM Materiel WHERE reference_materiel = '".$ref."';")->fetch();
-    $id = $r['id_materiel'];
+    if(!$r == false){
+        if(($r['quantite'] - $qte) < 0){
+            header("Location: ./");
+            die();
+        } else {
+            $c->query("UPDATE materiel SET  quantite = (quantite - ".$qte.") WHERE reference_materiel = '".$ref."';");
+            header("Location: ./det.php?id_materiel=".$r['id_materiel']);
+            die();
+        }
+    } else {
+        header("Location: ./");
+        die();
+    }
+
+
+    //a modifier -> les header ne devrait pas être dans la fonction, plutôt retourner le $id
 }
 ?>      

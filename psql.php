@@ -1,8 +1,0 @@
-<?php
-$conn = pg_connect("host=localhost port=5432 user=postgres password=postgres dbname=postgres");
-if (!$conn){
-    die("Connexion échoué avec PostgreSQL");
-}
-echo "Connecté :)";
-
-?>

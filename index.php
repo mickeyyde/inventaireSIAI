@@ -36,7 +36,7 @@ $conn1=connexionBDD();
             <div class="nav">
                 <a href="./ajtMat.php">Ajouter matériel</a>
                 <input type="text" id="name" size="30">
-                <button>Retirer matériel</button>
+                <a href="./rtrMat.php">Retirer matériel</a>
             </div>
 	</body>
 </html>
