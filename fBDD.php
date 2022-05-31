@@ -2,7 +2,7 @@
 function connexionBDD(){
     try{
         $connex = new PDO("pgsql:host=localhost options='--client_encoding=UTF8';dbname=postgres;port=5432","postgres","postgres");
-        print "Connecté :)<br/>";
+        //print "Connecté :)<br/>";
     } catch (PDOException $e) {
         print "Erreur de connexion à la base de données ! : ".$e->getMessage();
         die();
@@ -16,7 +16,7 @@ function ListeMarque($c){
 }
 
 function ListeMateriel($c){
-    $rMat=$c->query("SELECT * FROM Materiel");
+    $rMat=$c->query("SELECT * FROM Materiel ORDER BY id_materiel;");
     return $rMat;
 }
 

@@ -2,7 +2,6 @@
 require_once("fBDD.php");
 $conn1=connexionBDD();
 ?>
-<!doctype html>
 <html>
 
 	<head>

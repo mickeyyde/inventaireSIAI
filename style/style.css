@@ -2,7 +2,8 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.tabcenter{
+table{
+    border-collapse: collapse;
     margin-left:auto;
     margin-right:auto;
  }

@@ -9,7 +9,7 @@ if (isset($_GET['P_marque'])){
 
     AjouterMateriel($conn1, $marque, $ref, $qte);
 } else{
-     $ref = $_GET['P_ref'];
+    $ref = $_GET['P_ref'];
     $qte = (int)$_GET['P_qte'];
 
     RetirerMateriel($conn1, $ref, $qte);
