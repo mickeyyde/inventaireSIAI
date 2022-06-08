@@ -24,4 +24,6 @@ if (isset($_GET["recherche"])){
             $arrJSON = json_encode($rArr);
             echo $arrJSON;
 }
+
+
 ?>

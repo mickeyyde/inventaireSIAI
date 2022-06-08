@@ -10,7 +10,7 @@ switch($_GET['ACTION']){
         $carac = $_GET['M_carac'];
         $com = $_GET['M_com'];
         ModifierMateriel($conn1, $des, $qte, $carac, $com, $id);
-        header('Location: det.php?id_materiel='.$id);
+        header('Location: ../det.php?id_materiel='.$id);
         break;
 
     case 'ajouter':
