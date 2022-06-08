@@ -1,5 +1,5 @@
 <?php
-require_once("fBDD.php");
+require_once("./fBDD.php");
 $c = connexionBDD();
 
 if (isset($_GET["recherche"])){
