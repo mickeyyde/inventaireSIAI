@@ -1,0 +1,39 @@
+.container {
+    display: flex; /** set the container as flexbox **/
+    align-items: center; /** align all items vertically **/
+    width: auto;
+    margin-bottom: 10px;
+    border: 1px solid red;
+    margin: 0 auto;
+    width: 700px;
+  }
+
+  #butt{
+    margin: 0 auto;
+    width: 500px;
+  }
+  
+  img {
+    height: 300px;
+    width: auto;
+    border: 1px solid black;
+  }
+  
+  .text-container {
+    margin-left: 50px;
+  }
+
+  .button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+  .button2 {background-color: #ffe766; color: black;} 
+  .button3 {background-color: #f44336;} 

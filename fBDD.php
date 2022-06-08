@@ -61,4 +61,50 @@ function rechercheDefault($conn){
         return $arr;    
 }
 
+function ModifierMateriel($c, $des, $qte, $carac, $com, $id){
+    $c->query("UPDATE materiel SET  qte = ".$qte." WHERE id_materiel = '".$id."';");
+    $c->query("UPDATE materiel SET  designation = '".$des."' WHERE id_materiel = '".$id."';");
+    $c->query("UPDATE materiel SET  caracteristique = '".$carac."' WHERE id_materiel = '".$id."';");
+    $c->query("UPDATE materiel SET  commentaire = '".$com."' WHERE id_materiel = '".$id."';");
+    }
+    
+    //a modifier -> les header ne devrait pas être dans la fonction, plutôt retourner le $id
+
+
+function insertIMG($conn, $fileName, $pathToFile) {
+    if (!file_exists($pathToFile)) {
+        throw new \Exception("File %s not found.");
+    }
+
+    $sql = "INSERT INTO img VALUES(DEFAULT, '".$fileName."', 'image/png', :img_data)";
+
+    try {
+        $conn->beginTransaction();
+        
+        // create large object
+        $fileData = $conn->pgsqlLOBCreate();
+        $stream = $conn->pgsqlLOBOpen($fileData, 'w');
+        
+        // read data from the file and copy the the stream
+        $fh = fopen($pathToFile, 'rb');
+        stream_copy_to_stream($fh, $stream);
+        //
+        $fh = null;
+        $stream = null;
+
+        $stmt = $conn->prepare($sql);
+
+        $stmt->execute([
+            ':img_data' => $fileData,
+        ]);
+
+        // commit the transaction
+        $conn->commit();
+    } catch (\Exception $e) {
+        $conn->rollBack();
+        throw $e;
+    }
+
+   // return $this->$conn->lastInsertId('company_files_id_seq');
+}
 ?>      
