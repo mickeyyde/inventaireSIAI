@@ -1,6 +1,6 @@
 <?php
 echo <<<EOT
-        <section style="background: lightblue; color: rgba(0, 0, 0, 0.5);">
+        <section id=navmenu style="background: lightblue; color: rgba(0, 0, 0, 0.5);">
             <nav class="shift">
                 <ul>
                 <li><a href="./ajtMat.php">Ajouter</a></li>

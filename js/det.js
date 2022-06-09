@@ -19,7 +19,7 @@ function deleteMat(){
         getD_1.open( "GET", "../include/action.php?ACTION=supprimer&S_ref="+document.getElementById("ref").textContent, false );
         getD_1.send(null);		
         alert("Le matériel a été supprimé");
-        window.location.href = "./index.html";
+        window.location.href = "../index.php";
     } else {
         document.location.reload(true);
     }

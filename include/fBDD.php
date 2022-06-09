@@ -47,7 +47,7 @@ function rechercheDefault($conn){
     $rMat=$conn->query("SELECT * FROM Materiel ORDER BY id_materiel;")->fetchAll();
             $arr = array();
             foreach($rMat as $ligne) {
-                array_push($arr,array(0 => $ligne["designation"], 1 => $ligne["ref_marque"], 2 => $ligne["reference"], 3 => $ligne["qte"], 4 => $ligne['id_materiel'])); 
+                array_push($arr,array(0 => $ligne["designation"], 1 => $ligne["ref_marque"], 2 => $ligne["reference"], 3 => $ligne["qte"], 4 => $ligne['id_materiel'], 5 => $ligne['caracteristique'], 6 => $ligne['commentaire'])); 
             }
         return $arr;    
 }

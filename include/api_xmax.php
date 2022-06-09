@@ -49,7 +49,7 @@ switch($recherche){
                         $rMat=$c->query("SELECT * FROM Materiel WHERE designation ~ '".$designation."';")->fetchAll();
                         $arr = array();
                         foreach($rMat as $ligne) {
-                            array_push($arr,array(0 => $ligne["designation"], 1 => $ligne["ref_marque"], 2 => $ligne["reference"], 3 => $ligne["qte"], 4 => $ligne['id_materiel']));
+                            array_push($arr,array(0 => $ligne["designation"], 1 => $ligne["ref_marque"], 2 => $ligne["reference"], 3 => $ligne["qte"], 4 => $ligne['id_materiel'], 5 => $ligne['caracteristique'], 6 => $ligne['commentaire']));
                         } 
                         $arrJSON = json_encode($arr);  
                         echo $arrJSON;
@@ -63,7 +63,7 @@ switch($recherche){
                         $rMat=$c->query("SELECT * FROM Materiel WHERE ref_marque ~ '".$marque."';")->fetchAll();
                         $arr = array();
                         foreach($rMat as $ligne) {
-                            array_push($arr,array(0 => $ligne["designation"], 1 => $ligne["ref_marque"], 2 => $ligne["reference"], 3 => $ligne["qte"], 4 => $ligne['id_materiel']));
+                            array_push($arr,array(0 => $ligne["designation"], 1 => $ligne["ref_marque"], 2 => $ligne["reference"], 3 => $ligne["qte"], 4 => $ligne['id_materiel'], 5 => $ligne['caracteristique'], 6 => $ligne['commentaire']));
                         } 
                         $arrJSON = json_encode($arr);  
                         echo $arrJSON;
@@ -73,7 +73,7 @@ switch($recherche){
                         $rMat=$c->query("SELECT * FROM Materiel WHERE (ref_marque ~ '".$marque."' AND designation ~ '".$designation."' );")->fetchAll();
                         $arr = array();
                         foreach($rMat as $ligne) {
-                            array_push($arr,array(0 => $ligne["designation"], 1 => $ligne["ref_marque"], 2 => $ligne["reference"], 3 => $ligne["qte"], 4 => $ligne['id_materiel']));
+                            array_push($arr,array(0 => $ligne["designation"], 1 => $ligne["ref_marque"], 2 => $ligne["reference"], 3 => $ligne["qte"], 4 => $ligne['id_materiel'], 5 => $ligne['caracteristique'], 6 => $ligne['commentaire']));
                         } 
                         $arrJSON = json_encode($arr);  
                         echo $arrJSON;
@@ -91,7 +91,7 @@ switch($recherche){
                         $rMat=$c->query("SELECT * FROM Materiel WHERE reference ~ '".$recherche."';")->fetchAll();
                         $arr = array();
                         foreach($rMat as $ligne) {
-                            array_push($arr,array(0 => $ligne["designation"], 1 => $ligne["ref_marque"], 2 => $ligne["reference"], 3 => $ligne["qte"], 4 => $ligne['id_materiel']));
+                            array_push($arr,array(0 => $ligne["designation"], 1 => $ligne["ref_marque"], 2 => $ligne["reference"], 3 => $ligne["qte"], 4 => $ligne['id_materiel'], 5 => $ligne['caracteristique'], 6 => $ligne['commentaire']));
                         } 
                         $arrJSON = json_encode($arr);  
                         echo $arrJSON;
@@ -101,7 +101,7 @@ switch($recherche){
                         $rMat=$c->query("SELECT * FROM Materiel WHERE (reference ~ '".$recherche."' AND designation ~ '".$designation."');")->fetchAll();
                         $arr = array();
                         foreach($rMat as $ligne) {
-                            array_push($arr,array(0 => $ligne["designation"], 1 => $ligne["ref_marque"], 2 => $ligne["reference"], 3 => $ligne["qte"], 4 => $ligne['id_materiel']));
+                            array_push($arr,array(0 => $ligne["designation"], 1 => $ligne["ref_marque"], 2 => $ligne["reference"], 3 => $ligne["qte"], 4 => $ligne['id_materiel'], 5 => $ligne['caracteristique'], 6 => $ligne['commentaire']));
                         } 
                         $arrJSON = json_encode($arr);  
                         echo $arrJSON;
@@ -116,7 +116,7 @@ switch($recherche){
                         $rMat=$c->query("SELECT * FROM Materiel WHERE (reference ~ '".$recherche."' AND ref_marque ~ '".$marque."');")->fetchAll();
                         $arr = array();
                         foreach($rMat as $ligne) {
-                            array_push($arr,array(0 => $ligne["designation"], 1 => $ligne["ref_marque"], 2 => $ligne["reference"], 3 => $ligne["qte"], 4 => $ligne['id_materiel']));
+                            array_push($arr,array(0 => $ligne["designation"], 1 => $ligne["ref_marque"], 2 => $ligne["reference"], 3 => $ligne["qte"], 4 => $ligne['id_materiel'], 5 => $ligne['caracteristique'], 6 => $ligne['commentaire']));
                         } 
                         $arrJSON = json_encode($arr);  
                         echo $arrJSON;
@@ -126,7 +126,7 @@ switch($recherche){
                         $rMat=$c->query("SELECT * FROM Materiel WHERE (reference ~ '".$recherche."' AND ref_marque ~ '".$marque."' AND designation ~ '".$designation."');")->fetchAll();
                         $arr = array();
                         foreach($rMat as $ligne) {
-                            array_push($arr,array(0 => $ligne["designation"], 1 => $ligne["ref_marque"], 2 => $ligne["reference"], 3 => $ligne["qte"], 4 => $ligne['id_materiel']));
+                            array_push($arr,array(0 => $ligne["designation"], 1 => $ligne["ref_marque"], 2 => $ligne["reference"], 3 => $ligne["qte"], 4 => $ligne['id_materiel'], 5 => $ligne['caracteristique'], 6 => $ligne['commentaire']));
                         } 
                         $arrJSON = json_encode($arr);  
                         echo $arrJSON;

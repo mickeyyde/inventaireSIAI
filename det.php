@@ -22,7 +22,6 @@
                     $query->bindValue(':id', $r['id_materiel'], PDO::PARAM_INT);
                     $query->execute();
                 if (!file_exists($targetImage)) {
-                    
                     move_uploaded_file($_FILES['img_mat']['tmp_name'], $targetImage);
                 }
             }
