@@ -1,32 +1,39 @@
 <?php
-    require_once("./include/fBDD.php");
-    $conn1=connexionBDD();
-    $r=$conn1->query("SELECT * FROM Materiel WHERE id_materiel = ".$_GET['id_materiel'].";")->fetch();
-    
-    
-    if ($r == false){
-        header("Location: ./");
-        die();
-    }
-    
-    if (isset($_FILES['img_mat']['name'])) {
-            $imageName = $_FILES['img_mat']['name'];
-            $targetImage = $_SERVER['DOCUMENT_ROOT']."/ressource/imgMat/".basename($_FILES["img_mat"]["name"]);
-            $imageExtension = pathinfo($targetImage);
-            $extension = array("apng", "bmp", "gif", "ico", "cur", "jpg", "jpeg", "jfif", "pjpeg", "pjp", "png", "svg", "tif", "tiff", "webp");
-        
-            // Si limage respecte les extensions autorisé
-            if (in_array($imageExtension['extension'], $extension)) {
-                    $query = $conn1->prepare("UPDATE materiel SET img = :nom_img WHERE id_materiel = :id;");
-                    $query->bindValue(':nom_img', $imageName, PDO::PARAM_STR);
-                    $query->bindValue(':id', $r['id_materiel'], PDO::PARAM_INT);
-                    $query->execute();
-                if (!file_exists($targetImage)) {
-                    move_uploaded_file($_FILES['img_mat']['tmp_name'], $targetImage);
-                }
+require("./include/fBDD.php");
+$conn1=connexionBDD();
+$r=$conn1->query("SELECT * FROM Materiel WHERE id_materiel = ".$_GET['id_materiel'].";")->fetch();
+
+date_default_timezone_set('Europe/Paris');
+$getDate = getdate();
+$date = $getDate['year']."-".$getDate['mon']."-".$getDate['mday']." ". $getDate['hours'].":".$getDate['minutes'].":".$getDate['seconds'];
+
+if ($r == false){
+    header("Location: ./");
+    die();
+}
+
+if (isset($_FILES['img_mat']['name'])) {
+    $imageName = $_FILES['img_mat']['name'];
+    $targetImage = $_SERVER['DOCUMENT_ROOT']."/ressource/imgMat/".basename($_FILES["img_mat"]["name"]);
+    $imageExtension = pathinfo($targetImage);
+    $extension = array("apng", "bmp", "gif", "ico", "cur", "jpg", "jpeg", "jfif", "pjpeg", "pjp", "png", "svg", "tif", "tiff", "webp");
+
+    if(isset($imageExtension['extension'])){
+        if (in_array($imageExtension['extension'], $extension)) {
+            updateHistorique($conn1, $date, 'MODIFIER','[<=>] id:['.$r["id_materiel"].'] r:'.$r["reference"].' Modification de limage');
+            $query = $conn1->prepare("UPDATE materiel SET img = :nom_img WHERE id_materiel = :id;");
+            $query->bindValue(':nom_img', $imageName, PDO::PARAM_STR);
+            $query->bindValue(':id', $r['id_materiel'], PDO::PARAM_INT);
+            $query->execute();
+
+            if (!file_exists($targetImage)) {
+                move_uploaded_file($_FILES['img_mat']['tmp_name'], $targetImage);
             }
-            header("Refresh:0");
-        }
+        } 
+        header("Refresh:0");
+        die();
+    }      
+}
 ?>
 <html>
 	<head>

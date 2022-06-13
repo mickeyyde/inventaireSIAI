@@ -17,3 +17,10 @@ caracteristique VARCHAR(255),
 commentaire VARCHAR(255),
 img VARCHAR(255)
 );
+
+CREATE TABLE historique (
+id_historique SERIAL PRIMARY KEY,
+date TIMESTANPTZ NOT NULL,
+action VARCHAR(255) NOT NULL,
+detail VARCHAR(255) NOT NULL
+);

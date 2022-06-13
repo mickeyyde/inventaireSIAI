@@ -35,11 +35,11 @@
 	</head>
 	<body onload="fAction();">
         <?php include("./include/header.php");?>
-        <h1>Inventaire du SIAI (étagères du grenier)</h1><br>
+        <h1>Inventaire du SIAI (Activez JavaScript sur votre navigateur)</h1><br>
         <div id="global">
-            <input type="text" id="recherche" placeholder="Reference" size="30">
-            <input type="text" id="marque" placeholder="Marque" size="30">
             <input type="text" id="designation" placeholder="Designation" size="30">
+            <input type="text" id="marque" placeholder="Marque" size="30">
+            <input type="text" id="recherche" placeholder="Reference" size="30">
             <button onclick="fAction();">Rechercher</button>
         </div>
         <br><br>
@@ -51,14 +51,10 @@
                 <th><b>Reference</b></th>
                 <th><b>Quantite</b></th>
             </tr>
-            <tr>
-                <td class="jstr">Cette référence ne correspond à rien dans la BDD.</td>
-            </tr>
         </table>
         <br>
             <input type="image" onclick="copyCsvToClickBoard(obj);" class="exportbutton" id="csv" alt="csv button" src="./ressource/csv.png" />
             <input type="image" onclick="copyJsonToClickBoard(obj);" class="exportbutton" id="json" alt="json button" src="./ressource/json.png" />
             <script src='./js/index.js'></script>
-
 	</body>
 </html>

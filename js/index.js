@@ -69,3 +69,19 @@ function ConvertToCSV(objArray) {
 
     return str;
 }
+
+function tableUpdateHisto(obj) {
+    var tbl = document.getElementById('tableauhisto');
+    tbl.style.width = '50%';
+    tbl.setAttribute('border', '1');
+    for (var i = 0; i < obj.length; i++) {
+        var tr = document.createElement('tr');
+        tr.setAttribute('class', obj[i][0]);
+        for (var j = 0; j < 3; j++) {
+            var td = document.createElement('td');
+            td.appendChild(document.createTextNode(obj[i][j]));
+            tr.appendChild(td);
+        }
+        tbl.appendChild(tr);
+    }
+}

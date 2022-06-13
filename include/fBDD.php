@@ -1,7 +1,9 @@
 <?php
 function connexionBDD(){
+    include("paramcon.php");
+    $dsn='pgsql:host='.$host.';dbname='.$dbname.';port='.$port;
     try{
-        $connex = new PDO("pgsql:host=localhost options='--client_encoding=UTF8';dbname=postgres;port=5432","postgres","postgres");
+        $connex = new PDO($dsn, $user, $pass);
     } catch (PDOException $e) {
         print "Erreur de connexion à la base de donnée: ".$e->getMessage();
         die();
@@ -18,8 +20,7 @@ function AjouterMateriel($c, $des, $ma, $ref, $qte){
     $r=$c->query("SELECT * FROM Materiel WHERE reference = '".$ref."';")->fetch();
     if(!$r == false){
         $c->query("UPDATE materiel SET  qte = (qte + ".$qte.") WHERE reference = '".$ref."';");
-        header("Location: ./det.php?id_materiel=".$r['id_materiel']);
-        die();
+        return $r['id_materiel'];
     } else {
         $c->query("INSERT INTO Materiel VALUES(DEFAULT, '".$des."', '".$ma."', '".$ref."', ".$qte.");");
         $r = $c->query("SELECT * FROM Materiel WHERE reference = '".$ref."';")->fetch();
@@ -31,14 +32,14 @@ function RetirerMateriel($c, $ref, $qte){
     $r=$c->query("SELECT * FROM Materiel WHERE reference = '".$ref."';")->fetch();
     if(!$r == false){
         if(($r['qte'] - $qte) < 0){
-            header("Location: ./");
+            header("Location: ../index.php");
             die();
         } else {
             $c->query("UPDATE materiel SET  qte = (qte - ".$qte.") WHERE reference = '".$ref."';");
             return $r['id_materiel'];
         }
     } else {
-        header("Location: ./");
+        header("Location: ../index.php");
         die();
     }
 }
@@ -57,5 +58,18 @@ function ModifierMateriel($c, $des, $qte, $carac, $com, $id){
     $c->query("UPDATE materiel SET  designation = '".$des."' WHERE id_materiel = '".$id."';");
     $c->query("UPDATE materiel SET  caracteristique = '".$carac."' WHERE id_materiel = '".$id."';");
     $c->query("UPDATE materiel SET  commentaire = '".$com."' WHERE id_materiel = '".$id."';");
+}
+
+function updateHistorique($c, $date, $action, $detail){
+    try{
+        $c->query("INSERT INTO historique VALUES(DEFAULT, '".$date."', '".$action."', '".$detail."');");
+    } catch (PDOException $e) {
+        print "Erreur de connexion à la base de donnée: ".$e->getMessage();
+        die();
+    }
+}
+
+function deleteMat($c, $id){
+    $c->query("DELETE FROM materiel where id_materiel = ".$id.";");
 }
 ?>      
