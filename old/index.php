@@ -1,14 +1,3 @@
-<?php
-session_start();
-require_once('./include/fBDD.php');
-$connex = connexionBDD();
-if (!isset($_SESSION['mail'])){
-    header("Location: ./pageCon.php");
-    die();
-}
-
-?>
-
 <!DOCTYPE html>
 <html>
 	<head>
@@ -35,7 +24,7 @@ if (!isset($_SESSION['mail'])){
                     var recherche = document.getElementById('recherche').value;
                     var marque = document.getElementById('marque').value;
                     var designation = document.getElementById('designation').value;
-					objRequete.open('get','./include/api_stock.php');	
+					objRequete.open('get','./include/api_xmax.php?'+String(recherche.toUpperCase())+'/'+String(marque.toUpperCase())+'/'+String(designation),true);	
                     objRequete.onreadystatechange = fRetour;		
                     objRequete.send(null);									
 					return true; 
@@ -45,7 +34,8 @@ if (!isset($_SESSION['mail'])){
         </script>
 	</head>
 	<body onload="fAction();">
-        <h1>Stock de <?= $_SESSION['mail'] ?></h1><br>
+        <?php include("./include/header.php");?>
+        <h1>Inventaire du SIAI (Activez JavaScript sur votre navigateur)</h1><br>
         <div id="global">
             <input type="text" id="designation" placeholder="Designation" size="30">
             <input type="text" id="marque" placeholder="Marque" size="30">
@@ -56,16 +46,15 @@ if (!isset($_SESSION['mail'])){
         <Table Border=1 class="tabcenter" id="tableauref">
             <tr>
                 <th><b>Détail</b></th>
-                <th><b>Type</b></th>
+                <th><b>Designation</b></th>
                 <th><b>Marque</b></th>
                 <th><b>Reference</b></th>
-                <th><b>Designation</b></th>
-                <th><b>Quantite totale</b></th>
+                <th><b>Quantite</b></th>
             </tr>
         </table>
         <br>
             <input type="image" onclick="copyCsvToClickBoard(obj);" class="exportbutton" id="csv" alt="csv button" src="./ressource/csv.png" />
             <input type="image" onclick="copyJsonToClickBoard(obj);" class="exportbutton" id="json" alt="json button" src="./ressource/json.png" />
-            <script src='./js/index2.js'></script>
+            <script src='./js/index.js'></script>
 	</body>
 </html>

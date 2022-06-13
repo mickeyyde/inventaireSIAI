@@ -11,6 +11,30 @@ function connexionBDD(){
     return $connex;
 }
 
+function getStockFromSession($c, $mail){
+    $sql = "SELECT * FROM stock WHERE ref_proprietaire = '".$mail."'";
+    $rStock=$c->query($sql)->fetch();
+    return $rStock;
+}
+
+function getMatFromId($c, $id){
+    $sql = "SELECT * FROM materiel WHERE id = '".$id."'";
+    $rMat=$c->query($sql)->fetch();
+    return $rMat;
+}
+
+function getQteFromStock($c, $stock){
+    $arr = array();
+    $sql = "SELECT * FROM quantite WHERE ref_stock = ".$stock['id']."";
+    $r=$c->query($sql)->fetchAll();
+    foreach($r as $ligne){
+        $tempMat = getMatFromId($c, $ligne['ref_mat']);
+        array_push($arr,array(0 => $tempMat["type"], 1 => $tempMat["marque"], 2 => $tempMat["reference"], 3 => $tempMat["designation"], 4 => $ligne['qte_ne'], 5 => $ligne['qte_eo'], 6 => $ligne['qte_se']));
+    }
+    return $arr;
+}
+
+
 function ListeMarque($c){ 
     $rMarque=$c->query("SELECT nom_marque FROM Marque ORDER BY nom_marque;");
     return $rMarque;
