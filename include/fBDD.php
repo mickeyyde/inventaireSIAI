@@ -11,10 +11,34 @@ function connexionBDD(){
     return $connex;
 }
 
-function getStockFromSession($c, $mail){
-    $sql = "SELECT * FROM stock WHERE ref_proprietaire = '".$mail."'";
+function getStockFromIdProp($c, $id){
+    $sql = "SELECT * FROM stock WHERE ref_proprietaire = '".$id."'";
+    $rStock=$c->query($sql)->fetchAll();
+    return $rStock;
+}
+
+function getStockFromId($c, $id){
+    $sql = "SELECT * FROM stock WHERE id = '".$id."'";
     $rStock=$c->query($sql)->fetch();
     return $rStock;
+}
+
+function getStockFromName($c, $name){
+    $sql = "SELECT * FROM stock WHERE nom = '".$name."'";
+    $rStock=$c->query($sql)->fetch();
+    return $rStock;
+}
+
+function getPropFromId($c, $id){
+    $sql = "SELECT * FROM proprietaire WHERE id = '".$id."'";
+    $rProp=$c->query($sql)->fetch();
+    return $rProp;
+}
+
+function getPropFromMail($c, $mail){
+    $sql = "SELECT * FROM proprietaire WHERE mail = '".$mail."'";
+    $rProp=$c->query($sql)->fetch();
+    return $rProp;
 }
 
 function getMatFromId($c, $id){
@@ -28,7 +52,7 @@ function getQteFromStock($c, $stock){
     $sql = "SELECT * FROM quantite WHERE ref_stock = ".$stock['id']."";
     $r=$c->query($sql)->fetchAll();
     foreach($r as $ligne){
-        $tempMat = getMatFromId($c, $ligne['ref_mat']);
+        $tempMat = getMatFromId($c, $ligne['ref_materiel']);
         array_push($arr,array(0 => $tempMat["type"], 1 => $tempMat["marque"], 2 => $tempMat["reference"], 3 => $tempMat["designation"], 4 => $ligne['qte_ne'], 5 => $ligne['qte_eo'], 6 => $ligne['qte_se']));
     }
     return $arr;

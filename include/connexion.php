@@ -8,8 +8,8 @@ if (isset($_POST['mail'])){
     $r = $connex->query($sql)->fetch();
 
     if ($r != false){
-        $_SESSION['mail'] = $r['mail'];
-        header('Location: ../index.php');
+        $_SESSION['id'] = $r['id'];
+        header('Location: ../profil.php');
         die();
     } else {
         header('Location: ../pageCon.php');

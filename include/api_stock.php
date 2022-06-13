@@ -1,9 +1,9 @@
 <?php
 session_start();
-require_once("./fBDD.php");
+require("./fBDD.php");
 $c = connexionBDD();
 
-$stock = getStockFromSession($c,$_SESSION['mail']);
+$stock = getStockFromId($c, $_GET['id']);
 $result = getQteFromStock($c, $stock);
 
 echo json_encode($result);

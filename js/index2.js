@@ -3,7 +3,7 @@ function tableUpdate(obj) {
         var trs = document.getElementsByTagName('tr');
         for(var i=0;i=trs.length;i++){
             var oldtr = document.querySelector("[class='jstr']");   
-            oldtr.remove();   
+            oldtr.remove();   ref_mat
         }
     }catch{
         console.log("Aucune référence correspondante dans la BDD");
@@ -16,21 +16,29 @@ function tableUpdate(obj) {
         tr.setAttribute('class', 'jstr');
         for (var j = 0; j < 6; j++) {
             var td = document.createElement('td');
-            if(j == 5 ){
-                calcul = obj[i][4] + obj[i][5] + obj[i][6];
-                test = document.createElement('a');
-                test.innerText = "click"+obj[i][4];
-                test.setAttribute('href', "./det.php?id_materiel="+obj[i][4]);
-                td.appendChild(document.createTextNode(calcul));
-                tr.appendChild(td);  
-            }else{
-                td.appendChild(document.createTextNode(obj[i][j-1]));
-                tr.appendChild(td);  
+            switch(j){
+                case 0:
+                    detMat = document.createElement('a');
+                    detMat.innerText = "click";
+                    detMat.setAttribute('href', "./det.php?id_materiel=1");
+                    td.appendChild(detMat);
+                    tr.appendChild(td); 
+                    break;
+
+                case 5:
+                    calcul = obj[i][4] + obj[i][5] + obj[i][6];
+                    td.appendChild(document.createTextNode(calcul));
+                    tr.appendChild(td);  
+                    break;
+
+                default:
+                    td.appendChild(document.createTextNode(obj[i][j-1]));
+                    tr.appendChild(td); 
+                    break;
+            }
         }
         tbl.appendChild(tr);
     }
-}
-
 }
 
 function copyJsonToClickBoard(obj){

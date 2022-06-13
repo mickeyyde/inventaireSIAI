@@ -1,11 +1,32 @@
+
 .container {
-    display: flex; /** set the container as flexbox **/
-    align-items: center; /** align all items vertically **/
-    width: auto;
-    margin-bottom: 10px;
-    border: 1px solid red;
-    margin: 0 auto;
-    width: 700px;
+  display: flex;
+  padding: 20px;
+/** align all items vertically **/
+  background-color: rgba(0,255,255,0.2);
+  margin-bottom: 10px;
+  border: 3px solid blue;
+  border-radius: 10%;
+  margin: 10px;
+  width: 40%;
+  }
+
+  .text-container {
+    margin-left: 50px;
+  }
+
+.container2 {
+padding: 20px;
+background-color: rgba(199, 61, 204, 0.2);
+margin-bottom: 10px;
+border: 3px solid rgb(163, 86, 150);
+border-radius: 10%;
+margin: 10px;
+width: 40%;
+}
+
+  .container2 h3{
+  text-align: center;
   }
 
   #butt{
@@ -14,14 +35,12 @@
   }
   
   img {
-    height: 300px;
-    width: auto;
+    width: 300px;
+    height: auto;
     border: 1px solid black;
   }
   
-  .text-container {
-    margin-left: 50px;
-  }
+
 
   .button {
     background-color: #4CAF50; /* Green */
