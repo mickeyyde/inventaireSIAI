@@ -53,10 +53,15 @@ function getQteFromStock($c, $stock){
     $r=$c->query($sql)->fetchAll();
     foreach($r as $ligne){
         $tempMat = getMatFromId($c, $ligne['ref_materiel']);
-        array_push($arr,array(0 => $tempMat["type"], 1 => $tempMat["marque"], 2 => $tempMat["reference"], 3 => $tempMat["designation"], 4 => $ligne['qte_ne'], 5 => $ligne['qte_eo'], 6 => $ligne['qte_se']));
+        array_push($arr,array(0 => $tempMat["type"], 1 => $tempMat["marque"], 2 => $tempMat["reference"], 3 => $tempMat["designation"], 4 => $ligne['qte_ne'], 5 => $ligne['qte_eo'], 6 => $ligne['qte_se'], 7 => $tempMat['id'], 8 => $ligne['ref_stock']));
     }
     return $arr;
 }
+
+function ListeContenir($c, $idmat){
+    $rListe=$c->query("SELECT * FROM quantite WHERE ref_materiel =".$idmat.";")->fetchAll();
+    return $rListe;
+}   
 
 
 function ListeMarque($c){ 
@@ -93,10 +98,10 @@ function RetirerMateriel($c, $ref, $qte){
 }
 
 function rechercheDefault($conn){
-    $rMat=$conn->query("SELECT * FROM Materiel ORDER BY id_materiel;")->fetchAll();
+    $rMat=$conn->query("SELECT * FROM Materiel ORDER BY id;")->fetchAll();
             $arr = array();
             foreach($rMat as $ligne) {
-                array_push($arr,array(0 => $ligne["designation"], 1 => $ligne["ref_marque"], 2 => $ligne["reference"], 3 => $ligne["qte"], 4 => $ligne['id_materiel'], 5 => $ligne['caracteristique'], 6 => $ligne['commentaire'])); 
+                array_push($arr,array(0 => $ligne["type"], 1 => $ligne["marque"], 2 => $ligne["reference"], 3 => $ligne["designation"], 4 => $ligne["id"]));
             }
         return $arr;    
 }

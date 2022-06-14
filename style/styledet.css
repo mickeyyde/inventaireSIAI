@@ -15,20 +15,6 @@
     margin-left: 50px;
   }
 
-.container2 {
-padding: 20px;
-background-color: rgba(199, 61, 204, 0.2);
-margin-bottom: 10px;
-border: 3px solid rgb(163, 86, 150);
-border-radius: 10%;
-margin: 10px;
-width: 40%;
-}
-
-  .container2 h3{
-  text-align: center;
-  }
-
   #butt{
     margin: 0 auto;
     width: 500px;
@@ -56,3 +42,27 @@ width: 40%;
   }
   .button2 {background-color: #ffe766; color: black;} 
   .button3 {background-color: #f44336;} 
+
+  .swipe{
+    overflow:auto;
+    white-space:nowrap;
+    background-color: rgb(229, 232, 235);
+}
+
+.box{
+    background-color: rgba(0,255,255,0.2);
+    border: 3px solid blue;
+    border-radius: 10%;
+    margin: 10px;
+    width: 400px;
+    height: 200px;
+    display: inline-block;
+}
+.text{
+    margin: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.box:hover {opacity: 0.5;}
+

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require("./fBDD.php");
+require("../fBDD.php");
 $c = connexionBDD();
 
 $stock = getStockFromId($c, $_GET['id']);

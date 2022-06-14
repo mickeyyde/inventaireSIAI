@@ -45,7 +45,7 @@ if (isset($_GET['id'])){
 			
 			function fAction() {
                     var idget = document.getElementById('idget').value;
-					objRequete.open('get','./include/api_stock.php?id='+idget+'');	
+					objRequete.open('get','./include/api/api_stock.php?id='+idget);	
                     objRequete.onreadystatechange = fRetour;		
                     objRequete.send(null);									
 					return true; 

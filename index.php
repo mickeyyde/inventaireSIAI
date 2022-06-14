@@ -21,10 +21,7 @@
 			}
 			
 			function fAction() {
-                    var recherche = document.getElementById('recherche').value;
-                    var marque = document.getElementById('marque').value;
-                    var designation = document.getElementById('designation').value;
-					objRequete.open('get','./include/api_xmax.php?'+String(recherche.toUpperCase())+'/'+String(marque.toUpperCase())+'/'+String(designation),true);	
+                    objRequete.open('get','./include/api/api_materiel.php',true);	
                     objRequete.onreadystatechange = fRetour;		
                     objRequete.send(null);									
 					return true; 
@@ -36,20 +33,14 @@
 	<body onload="fAction();">
         <?php include("./include/header.php");?>
         <h1>Inventaire du SIAI (Activez JavaScript sur votre navigateur)</h1><br>
-        <div id="global">
-            <input type="text" id="designation" placeholder="Designation" size="30">
-            <input type="text" id="marque" placeholder="Marque" size="30">
-            <input type="text" id="recherche" placeholder="Reference" size="30">
-            <button onclick="fAction();">Rechercher</button>
-        </div>
         <br><br>
         <Table Border=1 class="tabcenter" id="tableauref">
             <tr>
                 <th><b>Détail</b></th>
-                <th><b>Designation</b></th>
+                <th><b>Type</b></th>
                 <th><b>Marque</b></th>
                 <th><b>Reference</b></th>
-                <th><b>Quantite</b></th>
+                <th><b>Designation</b></th>
             </tr>
         </table>
         <br>

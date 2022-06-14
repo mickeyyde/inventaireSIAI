@@ -3,35 +3,15 @@ session_start();
 require("./include/fBDD.php");
 $conn1=connexionBDD();
 $r=$conn1->query("SELECT * FROM Materiel WHERE id = ".$_GET['id_materiel'].";")->fetch();
-
-if (isset($_GET['id_proprietaire'])){
-    $prop = getPropFromId($conn1, $_GET['id_proprietaire']);
-    if(!$prop == false){
-        $stock = getStockFromMail($conn1, $prop['mail']);
-        $qte = $conn1->query("SELECT * FROM quantite WHERE (ref_mat = ".$_GET['id_materiel']." AND ref_stock = ".$stock['id'].")")->fetch();
-    } else {
-        $prop = getPropFromMail($conn1, $_SESSION['mail']);
-        $stock = getStockFromMail($conn1, $_SESSION['mail']);
-        $qte = $conn1->query("SELECT * FROM quantite WHERE (ref_mat = ".$_GET['id_materiel']." AND ref_stock = ".$stock['id'].")")->fetch();
-    }
-} else {
-    $prop = getPropFromMail($conn1, $_SESSION['mail']);
-    $stock = getStockFromMail($conn1, $_SESSION['mail']);
-    $qte = $conn1->query("SELECT * FROM quantite WHERE (ref_mat = ".$_GET['id_materiel']." AND ref_stock = ".$stock['id'].")")->fetch();
-}
-
-if($qte == false){
-    $qte = array("qte_ne" => 0, "qte_eo" => 0, "qte_se" => 0);
-}
-
-
-
-
-
 if ($r == false){
     header("Location: ./");
     die();
 }
+
+$InStock = ListeContenir($conn1, $_GET['id_materiel']);
+
+
+
 
 
 
@@ -98,19 +78,34 @@ if(is_null($r['img'])){
                 <input type="submit" value="ModifierImage"/>
     </form>
 </div>
-</div>
-
-<div class="inline container2">
-    <h3>Stock de <?= $prop['nom']." ".$prop['prenom']; ?></h3>
-<div class="text-container2">
-    <br>Quantite Totale: <?= $qte['qte_ne'] + $qte['qte_eo'] + $qte['qte_se']?>
-    <br><br>
-    Neuf : <?= $qte['qte_ne']?><br> 
-    Ouvert : <?= $qte['qte_eo']?><br>
-    Sans emballage : <?= $qte['qte_se']?><br>
-</div>
     
 </div>
+<footer>
+    <h3>Qui d'autre possède ce matériel?</h3>
+    <div class=swipe>
+        
+        <?php 
+            foreach($InStock as $ligne){
+                $tempstock = getStockFromId($conn1, $ligne['ref_stock']);
+                $tempprop = getPropFromId($conn1, $tempstock['ref_proprietaire']);
+                print("<div class='box'>");
+                print("<div class='text'>");
+                print($tempprop['nom']." ".$tempprop['prenom']." : [".$tempstock['id']."] ".$tempstock['nom']."<br><br>");
+                print("QTE TOTALE: ".$ligne['qte_ne']+$ligne['qte_eo']+$ligne['qte_se']."<br><br>");
+                print("QTE NEUF: ".$ligne['qte_ne']."<br>");
+                print("QTE EMBALLAGE OUVERT: ".$ligne['qte_eo']."<br>");
+                print("QTE SANS EMBALLAGE: ".$ligne['qte_se']."<br><br>");
+                if(($ligne['commentaire'] == "")){
+                    print("&nbsp");
+                }else{
+                    print($ligne['commentaire']);
+                } 
+                print("</div>");
+                print("</div>");
+            }
+        ?>
+    </div>
+</footer>
 
 </body> 
 </html>

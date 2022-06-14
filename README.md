@@ -11,7 +11,7 @@ nom VARCHAR(255) UNIQUE NOT NULL
 
 create table materiel(
 id SERIAL PRIMARY KEY,
-marque VARCHAR(255) NOT NULL references marque(nom),
+marque VARCHAR(255) NOT NULL references marque(nom) ON DELETE CASCADE,
 reference VARCHAR(255) UNIQUE NOT NULL,
 type VARCHAR(255) NOT NULL,
 designation VARCHAR(255),
@@ -29,12 +29,12 @@ mail VARCHAR(255) UNIQUE NOT NULL
 CREATE TABLE stock(
 id SERIAL PRIMARY KEY,
 nom VARCHAR(255) NOT NULL,
-ref_proprietaire INT NOT NULL references proprietaire(id)
+ref_proprietaire INT NOT NULL references proprietaire(id) ON DELETE CASCADE
 );
 
 CREATE TABLE quantite(
-ref_materiel INT NOT NULL references materiel(id),
-ref_stock INT NOT NULL references stock(id),
+ref_materiel INT NOT NULL references materiel(id) ON DELETE CASCADE,
+ref_stock INT NOT NULL references stock(id) ON DELETE CASCADE,
 qte_ne INT NOT NULL,
 qte_eo INT NOT NULL,
 qte_se INT NOT NULL,
