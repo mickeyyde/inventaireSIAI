@@ -58,9 +58,14 @@ function getQteFromStock($c, $stock){
     return $arr;
 }
 
-function ListeContenir($c, $idmat){
-    $rListe=$c->query("SELECT * FROM quantite WHERE ref_materiel =".$idmat.";")->fetchAll();
-    return $rListe;
+function ListeContenir($c, $idmat, $idstock){
+    if ($idstock != null){
+        $rListe=$c->query("SELECT * FROM quantite WHERE ref_materiel = ".$idmat." EXCEPT SELECT * FROM quantite WHERE (ref_materiel = ".$idmat." AND ref_stock = ".$idstock.");")->fetchAll();
+        return $rListe;
+    }else{
+        $rListe=$c->query("SELECT * FROM quantite WHERE ref_materiel = ".$idmat.";")->fetchAll();
+        return $rListe;
+    }
 }   
 
 
@@ -124,5 +129,9 @@ function updateHistorique($c, $date, $action, $detail){
 
 function deleteMat($c, $id){
     $c->query("DELETE FROM materiel where id_materiel = ".$id.";");
+}
+
+function updateQTE($c, $idstock, $idmat, $ne, $eo, $se){
+    $c->query("UPDATE quantite SET qte_ne = ".$ne.", qte_eo = ".$eo.", qte_se = ".$se." WHERE (ref_materiel = ".$idmat." AND ref_stock = ".$idstock.");");
 }
 ?>      

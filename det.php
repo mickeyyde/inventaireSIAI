@@ -7,17 +7,11 @@ if ($r == false){
     header("Location: ./");
     die();
 }
-
-$InStock = ListeContenir($conn1, $_GET['id_materiel']);
-
-
-
-
-
-
-
-
-
+if(isset($_GET["stock"])){
+    $InStock = ListeContenir($conn1, $_GET['id_materiel'], $_GET["stock"]);
+}else{
+    $InStock = ListeContenir($conn1, $_GET['id_materiel'], null);
+}
 
 
 if (isset($_FILES['img_mat']['name'])) {
@@ -53,7 +47,8 @@ if (isset($_FILES['img_mat']['name'])) {
 	</head>
 	<body id="body">
     <?php include("./include/header.php");?>
-<div class="inline container">
+<div class="wrapper">
+<div class="container" id='div1'>
 <?php
 if(is_null($r['img'])){
     print("<img src='./ressource/imgNull.png' alt='imgNull.png'>");
@@ -63,49 +58,75 @@ if(is_null($r['img'])){
 ?>
   <div class="text-container">
   <form action="./include/action.php" method="get" id="formDet">
-                <input name='ACTION' type='hidden' value='modifier'/>
+                <input name='ACTION' type='hidden' value='modifierMAT'/>
                 <input name='M_id' type='hidden' value='<?= $r['id_materiel']?>'/>
                 ID BDD: <b><?= $r['id']?></b><br>
-                Type: <b><?= $r["type"]?></b><br>
+                Type: <b class="str0"><?= $r["type"]?></b><br>
                 Marque: <b><?= $r["marque"]?></b><br>
                 Reference: <b id="ref"><?= $r["reference"]?></b><br>
-                Commentaire: <i class="str2"><?= $r["commentaire"]?></i><br>
-                Designation: <b class="str0"><?= $r["designation"]?></b><br>
+                Commentaire: <i class="str1"><?= $r["commentaire"]?></i><br>
+                Designation: <b class="str2"><?= $r["designation"]?></b><br>
     </form>
-    <br>Image: <?= $r["img"]?>
-    <form enctype="multipart/form-data" action="#" method="post">
-                <input name="img_mat" type="file"/><br><br>
-                <input type="submit" value="ModifierImage"/>
+    <button id="modifmat" class="button button2" onclick='modifiermat()'>Modifier</button>  
+</div>
+<form id="formimg"enctype="multipart/form-data" action="" method="post">
+                <input name="img_mat" type="file"/><input type="submit" value="ModifierImage"/><br><br>
+                Image: <?= $r["img"]?>
+                
     </form>
 </div>
-    
+
+<div class="container" id='div2'>
+  <div class="text-container">
+    <form action="./include/action.php" method="get" id="formStock">
+    <input type='text' hidden name='ACTION' value='modifierQTE'>
+    <input type='text' hidden name='M_idmat' value='<?= $_GET['id_materiel'] ?>'>
+    <?php
+    if(isset($_GET['stock'])){
+        $getstock = getstockfromid($conn1, $_GET['stock']);
+        if($getstock != false){
+            $stockprop = getPropFromId($conn1, $getstock['ref_proprietaire']);
+            $sql = "SELECT * FROM quantite WHERE (ref_stock = ".$getstock['id']." AND ref_materiel =".$_GET['id_materiel'].");";
+            $getqte=$conn1->query($sql)->fetch();
+            print("<input type='text' hidden name='M_idstock' value='".$getstock['id']."'>");
+            print("<b>[".$getstock['id']."] ".$getstock['nom']."</b><br><br>");
+            print("Proprietaire: <i>".$stockprop['nom']." ".$stockprop['prenom']."</i><br><br>");
+            print("QTE TOTALE: ".$getqte['qte_ne']+$getqte['qte_eo']+$getqte['qte_se']."<br><br>");
+            print("QTE NEUF: <b class='qte0'>".$getqte['qte_ne']."</b><br>");
+            print("QTE EMBALLAGE OUVERT: <b class='qte1'>".$getqte['qte_eo']."</b><br>");
+            print("QTE SANS EMBALLAGE: <b class='qte2'>".$getqte['qte_se']."</b><br><br>");
+            print("<button id='modifstock' onclick='modifierstock();' class='button button2'>Editer</button>");
+    }
+}
+    ?>
+    </form> <input type="text" hidden name="M_idstock" value="">
+  </div>
 </div>
+</div>
+
 <footer>
     <h3>Qui d'autre possède ce matériel?</h3>
     <div class=swipe>
-        
         <?php 
             foreach($InStock as $ligne){
                 $tempstock = getStockFromId($conn1, $ligne['ref_stock']);
                 $tempprop = getPropFromId($conn1, $tempstock['ref_proprietaire']);
-                print("<div class='box'>");
-                print("<div class='text'>");
+                print("<a href='./det.php?id_materiel=".$_GET['id_materiel']."&stock=".$tempstock['id']."'><div class='box'><div class='text'>");
                 print($tempprop['nom']." ".$tempprop['prenom']." : [".$tempstock['id']."] ".$tempstock['nom']."<br><br>");
                 print("QTE TOTALE: ".$ligne['qte_ne']+$ligne['qte_eo']+$ligne['qte_se']."<br><br>");
                 print("QTE NEUF: ".$ligne['qte_ne']."<br>");
                 print("QTE EMBALLAGE OUVERT: ".$ligne['qte_eo']."<br>");
                 print("QTE SANS EMBALLAGE: ".$ligne['qte_se']."<br><br>");
                 if(($ligne['commentaire'] == "")){
-                    print("&nbsp");
+                    print("&nbspg ");
                 }else{
                     print($ligne['commentaire']);
                 } 
-                print("</div>");
-                print("</div>");
+                print("</div></div></a>");
             }
         ?>
     </div>
 </footer>
-
+<script src='./js/index2.js'></script>
 </body> 
 </html>

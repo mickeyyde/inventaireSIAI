@@ -5,16 +5,28 @@ date_default_timezone_set('Europe/Paris');
 $getDate = getdate();
 $date = $getDate['year']."-".$getDate['mon']."-".$getDate['mday']." ". $getDate['hours'].":".$getDate['minutes'].":".$getDate['seconds'];
 
+if(isset($_GET['ACTION'])){
 switch($_GET['ACTION']){
-    case 'modifier':
-        $id = $_GET['M_id'];
-        $des = $_GET['M_des'];
-        $qte = (int)$_GET['M_qte'];
-        $carac = $_GET['M_carac'];
-        $com = $_GET['M_com'];
-        ModifierMateriel($conn1, $des, $qte, $carac, $com, $id);
-        updateHistorique($conn1, $date, 'MODIFIER','[<=>] idBDD:['.$id.'] m:'.$r["ref_marque"].' r:'.$ref.'');
-        header('Location: ../det.php?id_materiel='.$id);
+    case 'modifierQTE':
+        $idmat = $_GET['M_idmat'];
+        $idstock = $_GET['M_idstock'];
+        $ne = $_GET['M_ne'];
+        $eo = (int)$_GET['M_eo'];
+        $se = $_GET['M_se'];
+        updateQTE($conn1, $idstock, $idmat, $ne, $eo, $se);
+        //updateHistorique($conn1, $date, 'MODIFIER','[<=>] idBDD:['.$id.'] m:'.$r["ref_marque"].' r:'.$ref.'');
+        header('Location: ../det.php?id_materiel='.$idmat.'&stock='.$idstock);
+        break;
+
+    case 'modifierMAT':
+        $idmat = $_GET['M_idmat'];
+        $idstock = $_GET['M_idstock'];
+        $ne = $_GET['M_ne'];
+        $eo = (int)$_GET['M_eo'];
+        $se = $_GET['M_se'];
+        updateQTE($conn1, $idstock, $idmat, $ne, $eo, $se);
+        //updateHistorique($conn1, $date, 'MODIFIER','[<=>] idBDD:['.$id.'] m:'.$r["ref_marque"].' r:'.$ref.'');
+        header('Location: ../det.php?id_materiel='.$idmat.'&stock='.$idstock);
         break;
 
     case 'ajouter':
@@ -60,5 +72,6 @@ switch($_GET['ACTION']){
         break;
 
     default;
+}
 }
 ?>

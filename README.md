@@ -35,8 +35,9 @@ ref_proprietaire INT NOT NULL references proprietaire(id) ON DELETE CASCADE
 CREATE TABLE quantite(
 ref_materiel INT NOT NULL references materiel(id) ON DELETE CASCADE,
 ref_stock INT NOT NULL references stock(id) ON DELETE CASCADE,
-qte_ne INT NOT NULL,
-qte_eo INT NOT NULL,
-qte_se INT NOT NULL,
-commentaire VARCHAR(255)
+qte_ne INT NOT NULL CHECK (qte_ne >= 0),
+qte_eo INT NOT NULL CHECK (qte_eo >= 0),
+qte_se INT NOT NULL CHECK (qte_se >= 0),
+commentaire VARCHAR(255),
+PRIMARY KEY (ref_materiel, ref_stock)
 );

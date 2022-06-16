@@ -36,6 +36,9 @@
         <br><br>
         <Table Border=1 class="tabcenter" id="tableauref">
             <tr>
+                <td  colspan="5"><a href="">Créer un nouveau matériel</a></td>
+            </tr>
+            <tr>
                 <th><b>Détail</b></th>
                 <th><b>Type</b></th>
                 <th><b>Marque</b></th>

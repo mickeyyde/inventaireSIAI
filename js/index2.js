@@ -20,7 +20,7 @@ function tableUpdate(obj) {
                 case 0:
                     detMat = document.createElement('a');
                     detMat.innerText = "click";
-                    detMat.setAttribute('href', "./det.php?id_materiel="+obj[i][7]+"&id_stock="+obj[i][8]);
+                    detMat.setAttribute('href', "./det.php?id_materiel="+obj[i][7]+"&stock="+obj[i][8]);
                     td.appendChild(detMat);
                     tr.appendChild(td); 
                     break;
