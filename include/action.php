@@ -20,39 +20,25 @@ switch($_GET['ACTION']){
 
     case 'modifierMAT':
         $idmat = $_GET['M_idmat'];
-        $idstock = $_GET['M_idstock'];
-        $ne = $_GET['M_ne'];
-        $eo = (int)$_GET['M_eo'];
-        $se = $_GET['M_se'];
-        updateQTE($conn1, $idstock, $idmat, $ne, $eo, $se);
+        $type = $_GET['M_type'];
+        $com = $_GET['M_com'];
+        $des = $_GET['M_des'];
+        updateMAT($conn1, $idmat, $type, $com, $des);
         //updateHistorique($conn1, $date, 'MODIFIER','[<=>] idBDD:['.$id.'] m:'.$r["ref_marque"].' r:'.$ref.'');
-        header('Location: ../det.php?id_materiel='.$idmat.'&stock='.$idstock);
+        header('Location: ../det.php?id_materiel='.$idmat);
         break;
 
-    case 'ajouter':
-        $marque = $_GET['A_marque'];
-        $qte = (int)$_GET['A_qte'];
-        $des = $_GET['A_des'];
-        $ref = strtoupper($_GET['A_ref']);
-        $id = AjouterMateriel($conn1, $des, $marque, $ref, $qte);
-        updateHistorique($conn1, $date,'AJOUTER','[+] idBDD:['.$id.'] m:'.$marque.' r:'.$ref.'');
-        header('Location:../det.php?id_materiel='.$id);
-        break;
+    case 'newMAT':
+        $ref = $_GET['A_ref'];
+        $r=$conn1->query("SELECT * FROM Materiel WHERE reference = '".$ref."';")->fetch();
+        if($r == false){
+            $conn1->query("INSERT INTO Materiel VALUES(DEFAULT, '".$_GET['A_marque']."', '".$ref."', '".$_GET['A_type']."', '', '', '');");
+        }
     
-    case 'retirer':
-        $r=$conn1->query("SELECT * FROM materiel where reference = '".$ref."';")->fetch();
-        $ref = strtoupper($_GET['R_ref']);
-        $qte = (int)$_GET['R_qte'];
-        $id = RetirerMateriel($conn1, $ref, $qte);
-        updateHistorique($conn1, $date,'RETIRER','[-] idBDD:['.$id.'] m:'.$r["ref_marque"].' r:'.$ref.'');
-        header('Location:../det.php?id_materiel='.$id);
-        break;
-
-    case 'supprimer':
-        $ref = $_GET['S_ref'];
-        $r=$conn1->query("SELECT * FROM materiel where reference = '".$ref."';")->fetch();
-        updateHistorique($conn1, $date,'SUPPRIMER','[X] idBDD:['.$r["id_materiel"].'] m:'.$r["ref_marque"].' r:'.$ref.'');
-        deleteMat($conn1, $r['id_materiel']);
+    case 'supprimerMAT':
+        $id = $_GET['S_id'];
+        $conn1->query("DELETE FROM materiel where id = ".$id.";");
+        //updateHistorique($conn1, $date,'SUPPRIMER','[X] idBDD:['.$r["id_materiel"].'] m:'.$r["ref_marque"].' r:'.$ref.'');
         header('Location:../');
         break;
 
@@ -73,5 +59,11 @@ switch($_GET['ACTION']){
 
     default;
 }
+}
+
+if(isset($_POST['idstock'])){
+    $conn1->query("DELETE FROM stock WHERE id='".$_POST['idstock']."';");
+    header('Location:../profil.php');
+    die();
 }
 ?>

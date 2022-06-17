@@ -70,7 +70,7 @@ function ListeContenir($c, $idmat, $idstock){
 
 
 function ListeMarque($c){ 
-    $rMarque=$c->query("SELECT nom_marque FROM Marque ORDER BY nom_marque;");
+    $rMarque=$c->query("SELECT nom FROM Marque ORDER BY nom;");
     return $rMarque;
 }
 
@@ -133,5 +133,9 @@ function deleteMat($c, $id){
 
 function updateQTE($c, $idstock, $idmat, $ne, $eo, $se){
     $c->query("UPDATE quantite SET qte_ne = ".$ne.", qte_eo = ".$eo.", qte_se = ".$se." WHERE (ref_materiel = ".$idmat." AND ref_stock = ".$idstock.");");
+}
+
+function updateMAT($c, $idmat, $type, $com, $des){
+        $c->query("UPDATE materiel SET type = '".$type."', commentaire = '".$com."', designation = '".$des."' WHERE id= ".$idmat.";");
 }
 ?>      

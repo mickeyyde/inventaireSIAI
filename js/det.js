@@ -29,7 +29,7 @@ function modifierstock(){
 function deleteMat(){
     if (confirm( "Êtes vous sûr de vouloir supprimer le matériel de référence "+document.getElementById("ref").textContent+" de la base de données? (Impossible de revenir en arrière)" )) {
         var getD_1 = new XMLHttpRequest;
-        getD_1.open( "GET", "../include/action.php?ACTION=supprimermat&S_ref="+document.getElementById("ref").textContent, false );
+        getD_1.open( "GET", "../include/action.php?ACTION=supprimerMAT&S_id="+document.getElementById("idmat").value, false );
         getD_1.send(null);		
         alert("Le matériel a été supprimé");
         window.location.href = "../index.php";

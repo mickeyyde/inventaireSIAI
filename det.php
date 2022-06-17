@@ -59,7 +59,7 @@ if(is_null($r['img'])){
   <div class="text-container">
   <form action="./include/action.php" method="get" id="formDet">
                 <input name='ACTION' type='hidden' value='modifierMAT'/>
-                <input name='M_id' type='hidden' value='<?= $r['id_materiel']?>'/>
+                <input name='M_idmat' id='idmat' type='hidden' value='<?= $r['id']?>'/>
                 ID BDD: <b><?= $r['id']?></b><br>
                 Type: <b class="str0"><?= $r["type"]?></b><br>
                 Marque: <b><?= $r["marque"]?></b><br>
