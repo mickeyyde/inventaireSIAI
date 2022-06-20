@@ -1,5 +1,10 @@
 <?php
-require_once("./include/fBDD.php");
+session_start();
+if (!isset($_SESSION['id'])){
+    header("Location: ./pageCon.php");
+    die();
+}
+require("./include/fBDD.php");
 $conn1=connexionBDD();
 ?>
 
@@ -27,7 +32,7 @@ $conn1=connexionBDD();
                 <?php
                     $res = ListeMarque($conn1)->fetchAll();
                     foreach($res as $ligne){
-                        print "<option value='".$ligne['nom_marque']."'>".$ligne['nom_marque']."</option>";
+                        print "<option value='".$ligne['id']."'>".$ligne['nom']."</option>";
                     }
                 ?>
     <select>

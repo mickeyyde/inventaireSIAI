@@ -61,7 +61,7 @@ if (isset($_GET['id'])){
         <br><br>
         <Table Border=1 class="tabcenter" id="tableauref">
              <tr>
-                <td  colspan="6"><a href="">Ajouter du matériel dans mon stock</a></td>
+                <td  colspan="6"><a href="./stockadd.php?idstock=<?= $_GET['id']; ?>">Ajouter du matériel dans ce stock</a></td>
             </tr>
             <tr>
                 <th><b>Détail</b></th>

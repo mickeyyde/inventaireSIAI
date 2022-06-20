@@ -1,5 +1,10 @@
 <?php
 session_start();
+if (!isset($_SESSION['id'])){
+    header("Location: ./pageCon.php");
+    die();
+}
+
 require_once("./include/fBDD.php");
 $conn1=connexionBDD();
 ?>

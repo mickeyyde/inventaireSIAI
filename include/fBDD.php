@@ -68,39 +68,11 @@ function ListeContenir($c, $idmat, $idstock){
     }
 }   
 
-
 function ListeMarque($c){ 
-    $rMarque=$c->query("SELECT nom FROM Marque ORDER BY nom;");
+    $rMarque=$c->query("SELECT * FROM Marque ORDER BY nom;");
     return $rMarque;
 }
 
-function AjouterMateriel($c, $des, $ma, $ref, $qte){
-    $r=$c->query("SELECT * FROM Materiel WHERE reference = '".$ref."';")->fetch();
-    if(!$r == false){
-        $c->query("UPDATE materiel SET  qte = (qte + ".$qte.") WHERE reference = '".$ref."';");
-        return $r['id_materiel'];
-    } else {
-        $c->query("INSERT INTO Materiel VALUES(DEFAULT, '".$des."', '".$ma."', '".$ref."', ".$qte.");");
-        $r = $c->query("SELECT * FROM Materiel WHERE reference = '".$ref."';")->fetch();
-        return $r['id_materiel'];
-    }
-}
-
-function RetirerMateriel($c, $ref, $qte){
-    $r=$c->query("SELECT * FROM Materiel WHERE reference = '".$ref."';")->fetch();
-    if(!$r == false){
-        if(($r['qte'] - $qte) < 0){
-            header("Location: ../index.php");
-            die();
-        } else {
-            $c->query("UPDATE materiel SET  qte = (qte - ".$qte.") WHERE reference = '".$ref."';");
-            return $r['id_materiel'];
-        }
-    } else {
-        header("Location: ../index.php");
-        die();
-    }
-}
 
 function rechercheDefault($conn){
     $rMat=$conn->query("SELECT * FROM Materiel ORDER BY id;")->fetchAll();
@@ -109,13 +81,6 @@ function rechercheDefault($conn){
                 array_push($arr,array(0 => $ligne["type"], 1 => $ligne["marque"], 2 => $ligne["reference"], 3 => $ligne["designation"], 4 => $ligne["id"]));
             }
         return $arr;    
-}
-
-function ModifierMateriel($c, $des, $qte, $carac, $com, $id){
-    $c->query("UPDATE materiel SET  qte = ".$qte." WHERE id_materiel = '".$id."';");
-    $c->query("UPDATE materiel SET  designation = '".$des."' WHERE id_materiel = '".$id."';");
-    $c->query("UPDATE materiel SET  caracteristique = '".$carac."' WHERE id_materiel = '".$id."';");
-    $c->query("UPDATE materiel SET  commentaire = '".$com."' WHERE id_materiel = '".$id."';");
 }
 
 function updateHistorique($c, $date, $action, $detail){

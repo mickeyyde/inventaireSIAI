@@ -88,7 +88,7 @@ if(is_null($r['img'])){
             $stockprop = getPropFromId($conn1, $getstock['ref_proprietaire']);
             $sql = "SELECT * FROM quantite WHERE (ref_stock = ".$getstock['id']." AND ref_materiel =".$_GET['id_materiel'].");";
             $getqte=$conn1->query($sql)->fetch();
-            print("<input type='text' hidden name='M_idstock' value='".$getstock['id']."'>");
+            print("<input type='text' hidden id='stockid' name='M_idstock' value='".$getstock['id']."'>");
             print("<b>[".$getstock['id']."] ".$getstock['nom']."</b><br><br>");
             print("Proprietaire: <i>".$stockprop['nom']." ".$stockprop['prenom']."</i><br><br>");
             print("QTE TOTALE: ".$getqte['qte_ne']+$getqte['qte_eo']+$getqte['qte_se']."<br><br>");
@@ -96,6 +96,7 @@ if(is_null($r['img'])){
             print("QTE EMBALLAGE OUVERT: <b class='qte1'>".$getqte['qte_eo']."</b><br>");
             print("QTE SANS EMBALLAGE: <b class='qte2'>".$getqte['qte_se']."</b><br><br>");
             print("<button id='modifstock' onclick='modifierstock();' class='button button2'>Editer</button>");
+            print("<i>".$getqte['commentaire']."</i>");
     }
 }
     ?>

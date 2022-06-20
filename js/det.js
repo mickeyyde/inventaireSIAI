@@ -29,7 +29,7 @@ function modifierstock(){
 function deleteMat(){
     if (confirm( "Êtes vous sûr de vouloir supprimer le matériel de référence "+document.getElementById("ref").textContent+" de la base de données? (Impossible de revenir en arrière)" )) {
         var getD_1 = new XMLHttpRequest;
-        getD_1.open( "GET", "../include/action.php?ACTION=supprimerMAT&S_id="+document.getElementById("idmat").value, false );
+        getD_1.open( "GET", "../include/action.php?ACTION=supprimerMAT&S_idmat="+document.getElementById("idmat").value, false );
         getD_1.send(null);		
         alert("Le matériel a été supprimé");
         window.location.href = "../index.php";
@@ -41,7 +41,7 @@ function deleteMat(){
 function deleteFromStock(){
     if (confirm( "Êtes vous sûr de vouloir supprimer le matériel de référence "+document.getElementById("ref").textContent+" du stock ? (Impossible de revenir en arrière)" )) {
         var getD_2 = new XMLHttpRequest;
-        getD_2.open( "GET", "../include/action.php?ACTION=supprimersto&S_mat_id="+document.getElementById("id").textContent, false );
+        getD_2.open( "GET", "../include/action.php?ACTION=supprimerMATfromSTOCK&S_matid="+document.getElementById("idmat").value+"&S_stockid="+document.getElementById("stockid").value, false );
         getD_2.send(null);		
         alert("Le matériel a été supprimé du stock");
         window.location.href = "../index.php";

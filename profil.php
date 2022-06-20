@@ -40,7 +40,9 @@ $prop = getPropFromId($conn1, $_SESSION['id'])
         Profil de <?= $prop['nom']." ".$prop['prenom']; ?><br><br>
         ID BDD: <?= $prop['id']; ?><br>
         Mail: <?= $prop['mail']; ?><br><br>
-        Liste des Stocks: <form style='display:inline;' action=""><button onclick='showhiddenform();' id="showhiddenbutton" type="button">Ajouter nouveau</button><input id="inputnewstock" type="text" size="50" placeholder="Nom du stock" hidden><button hidden id="buttonnewstock">Valider</button></form>
+        Liste des Stocks: <form style='display:inline;' action="./include/action.php"><button onclick='showhiddenform();' id="showhiddenbutton" type="button">Ajouter nouveau</button>
+        <input type="text" name="ACTION"  value="newSTOCK" hidden>
+        <input id="inputnewstock" type="text" name="nom" size="50" placeholder="Nom du stock" hidden><button hidden id="buttonnewstock">Valider</button></form>
             <ul>
                 <?php 
                     $listestock = getStockFromIdProp($conn1, $prop['id']);
