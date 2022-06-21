@@ -70,14 +70,14 @@ function ConvertToCSV(objArray) {
     return str;
 }
 
-function tableUpdateHisto(obj) {
-    var tbl = document.getElementById('tableauhisto');
+function tableUpdateLog(obj) {
+    var tbl = document.getElementById('tableauLog');
     tbl.style.width = '50%';
     tbl.setAttribute('border', '1');
     for (var i = 0; i < obj.length; i++) {
         var tr = document.createElement('tr');
-        tr.setAttribute('class', obj[i][0]);
-        for (var j = 0; j < 3; j++) {
+        tr.setAttribute('class', obj[i][2]);
+        for (var j = 0; j < 4; j++) {
             var td = document.createElement('td');
             td.appendChild(document.createTextNode(obj[i][j]));
             tr.appendChild(td);

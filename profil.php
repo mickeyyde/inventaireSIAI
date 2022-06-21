@@ -37,7 +37,7 @@ $prop = getPropFromId($conn1, $_SESSION['id'])
     </head>
 	<body>
     <?php include("./include/header.php");?>
-        Profil de <?= $prop['nom']." ".$prop['prenom']; ?><br><br>
+        <h1>Profil de <?= $prop['nom']." ".$prop['prenom']; ?></h1> <br><br>
         ID BDD: <?= $prop['id']; ?><br>
         Mail: <?= $prop['mail']; ?><br><br>
         Liste des Stocks: <form style='display:inline;' action="./include/action.php"><button onclick='showhiddenform();' id="showhiddenbutton" type="button">Ajouter nouveau</button>

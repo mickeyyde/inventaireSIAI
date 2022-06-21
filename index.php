@@ -1,3 +1,14 @@
+<?php
+session_start();
+if (!isset($_SESSION['id'])){
+    header("Location: ./pageCon.php");
+    die();
+}
+
+require_once("./include/fBDD.php");
+$conn1=connexionBDD();
+?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -21,19 +32,30 @@
 			}
 			
 			function fAction() {
-                    objRequete.open('get','./include/api/api_materiel.php',true);	
-                    objRequete.onreadystatechange = fRetour;		
-                    objRequete.send(null);									
-					return true; 
+                var recherche = document.getElementById('recherche').value;
+                var marque = document.getElementById('marque').value;
+                var type = document.getElementById('type').value;
+                objRequete.open('get','./include/api/api_mat.php?'+String(recherche.toUpperCase())+'/'+String(marque.toUpperCase())+'/'+String(type.toUpperCase()),true);	
+
+                //objRequete.open('get','./include/api/api_xmax.php?//',true);	
+                objRequete.onreadystatechange = fRetour;		
+                objRequete.send(null);									
+                return true; 
 			 }
 
             
         </script>
 	</head>
+
 	<body onload="fAction();">
         <?php include("./include/header.php");?>
         <h1>Inventaire du SIAI (Activez JavaScript sur votre navigateur)</h1><br>
-        <br><br>
+        <br>
+        <input type="text" id="type" placeholder="Type" size="30">
+            <input type="text" id="marque" placeholder="Marque" size="30">
+            <input type="text" id="recherche" placeholder="Reference" size="30">
+            <button onclick="fAction();">Rechercher</button>
+        <br> <br> 
         <Table Border=1 class="tabcenter" id="tableauref">
             <tr>
                 <td  colspan="5"><a href="./newmat.php">Créer un nouveau matériel</a></td>

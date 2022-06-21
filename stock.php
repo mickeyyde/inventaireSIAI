@@ -57,8 +57,13 @@ if (isset($_GET['id'])){
 	<body onload="fAction();">
     <?php include("./include/header.php");?>
              <input type="text" id="idget" hidden value="<?= $_GET['id']; ?>">
-        <h1><?= $prop["nom"]." ".$prop["prenom"]." : ".$stock["nom"]; ?></h1><br>
-        <br><br>
+        <h1 style='display:inline;'><?= $prop["nom"]." ".$prop["prenom"]." : ".$stock["nom"]; ?></h1><a href="./log.php">Consulter l'historique</a><br>
+        <br>
+        <input type="text" id="type" placeholder="Type" size="30">
+            <input type="text" id="marque" placeholder="Marque" size="30">
+            <input type="text" id="recherche" placeholder="Reference" size="30">
+            <button onclick="fAction();">Rechercher</button>
+        <br> <br> 
         <Table Border=1 class="tabcenter" id="tableauref">
              <tr>
                 <td  colspan="6"><a href="./stockadd.php?idstock=<?= $_GET['id']; ?>">Ajouter du matériel dans ce stock</a></td>

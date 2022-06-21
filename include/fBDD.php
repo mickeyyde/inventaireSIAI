@@ -47,6 +47,12 @@ function getMatFromId($c, $id){
     return $rMat;
 }
 
+function getQteFromStockidAndMatid($c, $stock, $mat){
+    $r=$c->query("SELECT * FROM quantite WHERE (ref_stock = ".$stock." AND ref_materiel = ".$mat.")")->fetch();
+    return $r;
+}
+
+
 function getQteFromStock($c, $stock){
     $arr = array();
     $sql = "SELECT * FROM quantite WHERE ref_stock = ".$stock['id']."";
@@ -83,9 +89,9 @@ function rechercheDefault($conn){
         return $arr;    
 }
 
-function updateHistorique($c, $date, $action, $detail){
+function updateLogs($c, $date, $action, $stockcible, $detail){
     try{
-        $c->query("INSERT INTO historique VALUES(DEFAULT, '".$date."', '".$action."', '".$detail."');");
+        $c->query("INSERT INTO log VALUES(DEFAULT, '".$date."', '".$action."', '".$_SESSION['id']."', '".$stockcible."', '".$detail."');");
     } catch (PDOException $e) {
         print "Erreur de connexion à la base de donnée: ".$e->getMessage();
         die();

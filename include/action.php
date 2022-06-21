@@ -18,8 +18,14 @@ switch($_GET['ACTION']){
         $ne = $_GET['M_ne'];
         $eo = (int)$_GET['M_eo'];
         $se = $_GET['M_se'];
+        
+        $oldqte = getQteFromStockidAndMatid($conn1, $idstock, $idmat);
         updateQTE($conn1, $idstock, $idmat, $ne, $eo, $se);
-        //updateHistorique($conn1, $date, 'MODIFIER','[<=>] idBDD:['.$id.'] m:'.$r["ref_marque"].' r:'.$ref.'');
+        $newqte = getQteFromStockidAndMatid($conn1, $idstock, $idmat);
+
+        $rMat = getMatFromId($conn1, $idmat);
+        updateLogs($conn1, $date, 'MODIFIER', $idstock, $rMat["reference"].': '.$oldqte["qte_ne"].'->'.$newqte["qte_ne"].' '.$oldqte["qte_eo"].'->'.$newqte["qte_eo"].' '.$oldqte["qte_se"].'->'.$newqte["qte_se"]);
+        
         header('Location: ../det.php?id_materiel='.$idmat.'&stock='.$idstock);
         break;
 
@@ -49,7 +55,10 @@ switch($_GET['ACTION']){
         break;
 
     case 'supprimerMATfromSTOCK':
+        $rMat = getMatFromId($conn1, $_GET['S_matid']);
+        updateLogs($conn1, $date, 'SUPPRIMER', $_GET['S_stockid'], 'Suppression du matériel de référence:'.$rMat['reference']);
         $conn1->query("DELETE FROM quantite where (ref_materiel = ".$_GET['S_matid']." AND ref_stock = ".$_GET['S_stockid'].");");
+        header('Location: ./det.php?id_materiel='.$rMat['id']);
         break;
     
     case 'newSTOCK':
@@ -64,11 +73,11 @@ switch($_GET['ACTION']){
         }else{
             $conn1->query("UPDATE quantite SET qte_ne = qte_ne + ".$_GET['aS_qte_ne'].", qte_eo = qte_eo + ".$_GET['aS_qte_eo'].", qte_se = qte_se + ".$_GET['aS_qte_se']." WHERE (ref_materiel = ".$_GET['aS_idmat']." AND ref_stock = ".$_GET['aS_idstock'].")");
         }
+        header('Location:../stock.php?id='.$_GET['aS_idstock']);
         break;
 
     case 'supprimer_marque':
         $marque = $_GET['SUPP_marque'];
-        //$conn1->query("SELECT * FROM marque where nom_marque = '".$marque."';")->fetch();
         //updateHistorique($conn1, $date,'SUPPRIMER','[X] idBDD:['.$r["id_marque"].'] m:'.$r["nom_marque"]);
         $conn1->query("DELETE FROM marque where id = '".$marque."';");
         header('Location:../');

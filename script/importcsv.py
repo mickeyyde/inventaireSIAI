@@ -6,21 +6,21 @@ import csv
 
 liste =""
 
-with open("inventaireSFP.csv") as sfp:
+with open("grenier.csv") as sfp:
     reader = csv.DictReader(sfp, delimiter=';')
     nb_mat = 0
     for row in reader:
         nb_mat += 1
-        type = "SFP"
+        type = row["Type"].upper()
         marque = row["Marque"].upper()
-        ref = row["ref"]
-        des = row["Type"] +"/"+row["Mode"]+"/"+ row["Distance"]+"/"+row["FE/GE"]+"/"+row["Compatible"]
+        ref = row["Reference"].upper()
+        #des = row["Type"] +"/"+row["Mode"]+"/"+ row["Distance"]+"/"+row["FE/GE"]+"/"+row["Compatible"]
 
-        ligne = "(DEFAULT, '"+marque.strip()+"', '"+ref+"', 'SFP', '"+des+"'), \n"
+        ligne = "(DEFAULT, '"+marque.strip()+"', '"+ref+"', '"+type+"'), \n"
         liste = liste + ligne
         print(nb_mat)
         
 #liste = liste[:-3]
 
-with open('querySQLsfp.txt', 'w') as querySQL:
+with open('querySQLgrenier.txt', 'w') as querySQL:
     querySQL.write('INSERT INTO materiel VALUES \n' + liste)

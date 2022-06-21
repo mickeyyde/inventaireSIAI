@@ -41,3 +41,12 @@ qte_se INT NOT NULL CHECK (qte_se >= 0),
 commentaire VARCHAR(255),
 PRIMARY KEY (ref_materiel, ref_stock)
 );
+
+CREATE TABLE log (
+id SERIAL PRIMARY KEY,
+date TIMESTAMPTZ NOT NULL,
+action VARCHAR(255) NOT NULL,
+auteur INT NOT NULL references proprietaire(id) ON DELETE CASCADE,
+ref_stock INT NOT NULL references stock(id) ON DELETE CASCADE,
+detail VARCHAR(255)
+);
