@@ -17,10 +17,11 @@ $prop = getPropFromId($conn1, $_SESSION['id'])
         <link rel="icon" type="image/png" href="./ressource/BYES.png" />
 	<script>
         function supprimerStock(idstock){
+            var sS = "formSuppStock"+String(idstock)
             if(confirm("Etes vous certains de vouloir supprimer ce stock?")){
                 if(confirm("Etes vous VRAIMENT certains de vouloir supprimer ce stock?")){
                     console.log('big suppression la');
-                    document.forms["formSuppStock"].submit();
+                    document.forms[sS].submit();
                 }
             }
         }
@@ -48,8 +49,8 @@ $prop = getPropFromId($conn1, $_SESSION['id'])
                     $listestock = getStockFromIdProp($conn1, $prop['id']);
                     foreach($listestock as $ligne){
                         print('<li>');
-                        print("<form method='POST' id='formSuppStock' style='display:inline;' action='./include/action.php' ><input type='text' name='idstock' hidden value='".$ligne['id']."'><a href='./stock.php?id=".$ligne['id']."'>".$ligne['nom']."</a>&nbsp&nbsp&nbsp&nbsp");
-                        print("</form><button onclick='supprimerStock(".$ligne['id'].");'>Supprimer</button>");
+                        print("<form method='POST' id='formSuppStock".$ligne['id']."' action='./include/action.php'><input type='text' name='idstock' hidden value='".$ligne['id']."'></form><a href='./stock.php?id=".$ligne['id']."'>".$ligne['nom']."</a>&nbsp&nbsp&nbsp&nbsp");
+                        print("<button onclick='supprimerStock(".$ligne['id'].");'>Supprimer</button>");
                         print('</li>');
                     }
                 ?>

@@ -31,7 +31,7 @@ $conn1=connexionBDD();
 			}
 			
 			function fAction() {
-					objRequete.open('get','./include/api/api_log.php?');	
+					objRequete.open('get','./include/api/api_log.php?idstock='+document.getElementById('idstock').value);	
                     objRequete.onreadystatechange = fRetour;		
                     objRequete.send(null);									
 					return true; 
@@ -41,6 +41,7 @@ $conn1=connexionBDD();
 	<body onload="fAction();">
     <?php include("./include/header.php");?>
     <br>
+    <input type='text' hidden id='idstock' value='<?= $_GET['idstock'] ?>'>
     <Table Border=1 class="tabcenter" id="tableauLog">
             <tr>
                 <th><b>Auteur</b></th>

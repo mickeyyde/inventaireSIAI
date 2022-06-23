@@ -57,7 +57,7 @@ if (isset($_GET['id'])){
 	<body onload="fAction();">
     <?php include("./include/header.php");?>
              <input type="text" id="idget" hidden value="<?= $_GET['id']; ?>">
-        <h1 style='display:inline;'><?= $prop["nom"]." ".$prop["prenom"]." : ".$stock["nom"]; ?></h1><a href="./log.php">Consulter l'historique</a><br>
+        <h1 style='display:inline;'><?= $prop["nom"]." ".$prop["prenom"]." : ".$stock["nom"]; ?></h1><a href="./log.php?idstock=<?=$_GET['id'] ?>">Consulter l'historique</a><br>
         <br>
         <input type="text" id="type" placeholder="Type" size="30">
             <input type="text" id="marque" placeholder="Marque" size="30">

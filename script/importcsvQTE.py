@@ -2,6 +2,9 @@
 # pip install pyton-csv 
 # le fichier doit être en .csvupdate
 
+#ce script convient à créer une requete pgsql pour insérer une quantite de matériel dans un stock
+#dans la variable mat, il faut mettre le JSON de tout le matériel recensé (je n'ai pas eu le temps de le faire automatiquement)
+
 from asyncio.windows_events import NULL
 import csv
 

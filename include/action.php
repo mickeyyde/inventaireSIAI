@@ -35,7 +35,6 @@ switch($_GET['ACTION']){
         $com = $_GET['M_com'];
         $des = $_GET['M_des'];
         updateMAT($conn1, $idmat, $type, $com, $des);
-        //updateHistorique($conn1, $date, 'MODIFIER','[<=>] idBDD:['.$id.'] m:'.$r["ref_marque"].' r:'.$ref.'');
         header('Location: ../det.php?id_materiel='.$idmat);
         break;
 
@@ -44,13 +43,14 @@ switch($_GET['ACTION']){
         $r=$conn1->query("SELECT * FROM Materiel WHERE reference = '".$ref."';")->fetch();
         if($r == false){
             $conn1->query("INSERT INTO Materiel VALUES(DEFAULT, '".$_GET['A_marque']."', '".$ref."', '".$_GET['A_type']."', '', '', '');");
+            header('Location:../');
         }
+        header('Location:../det.php?id_materiel='.$r['id']);
         break;
     
     case 'supprimerMAT':
         $id = $_GET['S_idmat'];
         $conn1->query("DELETE FROM materiel where id = ".$id.";");
-        //updateHistorique($conn1, $date,'SUPPRIMER','[X] idBDD:['.$r["id_materiel"].'] m:'.$r["ref_marque"].' r:'.$ref.'');
         header('Location:../');
         break;
 
@@ -58,12 +58,13 @@ switch($_GET['ACTION']){
         $rMat = getMatFromId($conn1, $_GET['S_matid']);
         updateLogs($conn1, $date, 'SUPPRIMER', $_GET['S_stockid'], 'Suppression du matériel de référence:'.$rMat['reference']);
         $conn1->query("DELETE FROM quantite where (ref_materiel = ".$_GET['S_matid']." AND ref_stock = ".$_GET['S_stockid'].");");
-        header('Location: ./det.php?id_materiel='.$rMat['id']);
+        header('Location: ../det.php?id_materiel='.$rMat['id']);
         break;
     
     case 'newSTOCK':
         $nom = $_GET['nom'];
         $conn1->query("INSERT INTO stock VALUES(DEFAULT, '".$nom."', '".$_SESSION['id']."' )");
+        header('Location:../profil.php');
         break;
 
     case 'addSTOCK':
@@ -78,7 +79,6 @@ switch($_GET['ACTION']){
 
     case 'supprimer_marque':
         $marque = $_GET['SUPP_marque'];
-        //updateHistorique($conn1, $date,'SUPPRIMER','[X] idBDD:['.$r["id_marque"].'] m:'.$r["nom_marque"]);
         $conn1->query("DELETE FROM marque where id = '".$marque."';");
         header('Location:../');
         break;
@@ -86,7 +86,6 @@ switch($_GET['ACTION']){
     case 'new_marque':
         $marque = strtoupper($_GET['N_marque']);
         $conn1->query("INSERT INTO marque VALUES(DEFAULT, '".$marque."');");
-        //updateHistorique($conn1, $date,'AJOUTER','Nouvelle marque: '.$marque.'');
         header('Location:../');
         break;
 

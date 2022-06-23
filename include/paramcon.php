@@ -4,3 +4,4 @@ $pass = 'postgres'; // mot de passe du l'utilisateur
 $dbname = "InventaireSiai"; // nom de la base de donnée
 $host = "localhost"; //adresse du serveur postgresql
 $port = "5432"; // port du serveur
+?>
