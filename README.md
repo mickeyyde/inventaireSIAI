@@ -1,6 +1,4 @@
-L'objectif de la v2 de pouvoir visualiser et intéragir avec plusieurs inventaires plutôt qu'un seul.
-Ainsi chacun aura son propre inventaire pour stocker ses propres données.
-Néanmoins les données du matériel sont partagée, si celui-ci vient à être modifié ou supprimer celà modifira l'inventaire de tout le monde en conséquence.
+projet un peu guez que j'ai fait en stage a l'arrache pour passer le tps
 
 TABLES BDD PGSQL:
 
